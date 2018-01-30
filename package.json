@@ -1,0 +1,14 @@
+{
+  "name": "find-lf-unifi",
+  "version": "1.0.0",
+  "description": "Interface between find-lf and a unifi server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "AGPL v3",
+  "dependencies": {
+    "request": "^2.83.0"
+  }
+}
