@@ -22,7 +22,9 @@ var statOptions = {
     uri: `${config.unifi.url}/api/s/${config.unifi.site}/stat/sta`
 }
 
+// Objects containing lists of all previously registered access points and clients and the times they registered
 var nodes = { };
+var clients = { };
 
 function getStats() {
     request(Object.assign({}, baseOptions, statOptions), function(error, response, body) {
@@ -47,6 +49,10 @@ function getStats() {
                         timestamp: timestamp,
                         group: config.findlf.group
                     }
+                }
+                if (clients[client.mac] == undefined) {
+                        console.log(`new client '${client.mac}' online at ${timestamp}`);
+                        clients[client.mac] = timestamp;
                 }
                 payloads[client.ap_mac].signals.push(
                     {
