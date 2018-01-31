@@ -40,4 +40,7 @@ Settings that change the behavior of the source go here
 How often to poll the unifi controller and send them to the find-lf server
 
 
-You need a working
+You need a working find-lf server to use this. The public server at https://lf.internalpositioning.com works fine to get up and running though.
+You can then access the data at that servers public find counterpart at https://ml.internalpositioning.com .
+
+
