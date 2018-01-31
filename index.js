@@ -66,7 +66,7 @@ function getStats() {
             request(
                 {
                     method: 'POST',
-                    url: config.findlf.url,
+                    url: config.findlf.url + '/reversefingerprint',
                     json: payloads[node]
                  }, function(error, response, body) {
                     if (error) {
