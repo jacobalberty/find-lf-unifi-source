@@ -1,14 +1,9 @@
-const request = require("request").defaults({jar: true});;
+const request = require("request").defaults({jar: true})
+    , fs = require("fs")
+    , ini = require("ini");
 
-var username="admin"
-var password="changeme"
-var baseurl="https://unifi:8443"
-var site = 'default';
 
-findlf_addr="https://lf.internalpositioning.com/reversefingerprint";
-group_name="";
-
-var interval = 5;
+var config = ini.parse(fs.readFileSync("config.ini", "utf-8"));
 
 var iVar;
 
@@ -16,15 +11,15 @@ var baseOptions = {
     rejectUnauthorized: false
 }
 var loginOptions = {
-    uri: `${baseurl}/api/login`,
+    uri: `${config.unifi.url}/api/login`,
     method: "POST",
     json: {
-        'username': username,
-        'password': password
+        'username': config.unifi.username,
+        'password': config.unifi.password
     }
 }
 var statOptions = {
-    uri: `${baseurl}/api/s/${site}/stat/sta`
+    uri: `${config.unifi.url}/api/s/${config.unifi.site}/stat/sta`
 }
 
 function getStats() {
@@ -39,7 +34,7 @@ function getStats() {
                         node: client.ap_mac,
                         signals: [ ],
                         timestamp: timestamp,
-                        group: group_name
+                        group: config.findlf.group
                     }
                 }
                 payloads[client.ap_mac].signals.push(
@@ -54,7 +49,7 @@ function getStats() {
             request(
                 {
                     method: 'POST',
-                    url: findlf_addr,
+                    url: config.findlf.url,
                     json: payloads[node]
                  }, function(error, response, body) {
                     if (error) {
@@ -70,5 +65,5 @@ function getStats() {
 
 request(Object.assign({}, baseOptions, loginOptions), function(error, response, body) {
     getStats();
-    iVar = setInterval(getStats, interval*1000);
+    iVar = setInterval(getStats, config.other.interval*1000);
 });

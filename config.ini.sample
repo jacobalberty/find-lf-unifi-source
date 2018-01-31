@@ -1,0 +1,12 @@
+[unifi]
+username=admin
+password=changeme
+url=https://unifi:8443
+site=default
+
+[findlf]
+url=https://lf.internalpositioning.com/reversefingerprint
+group=
+
+[other]
+interval=5
