@@ -3,7 +3,17 @@ const request = require("request").defaults({jar: true})
     , ini = require("ini");
 
 
-var config = ini.parse(fs.readFileSync("config.ini", "utf-8"));
+try {
+    var config = ini.parse(fs.readFileSync("config.ini", "utf-8"));
+}
+catch (err) {
+    if (err.code = 'ENOENT') {
+        console.log('config.ini missing, please see README.md');
+        return;
+    } else {
+        throw err;
+    }
+}
 
 var iVar;
 
