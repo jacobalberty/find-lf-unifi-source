@@ -54,7 +54,7 @@ function getStats() {
                 payloads[client.ap_mac].signals.push(
                     {
                         mac: client.mac,
-                        rssi: client.rssi
+                        rssi: client.signal
                     }
                 );
             }
