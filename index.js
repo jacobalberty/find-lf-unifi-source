@@ -1,6 +1,7 @@
 const request = require("request").defaults({jar: true})
     , fs = require("fs")
-    , ini = require("ini");
+    , ini = require("ini")
+    , unifi = require("node-unifi");
 
 
 try {
@@ -17,36 +18,22 @@ catch (err) {
 
 var iVar;
 
-var baseOptions = {
-    rejectUnauthorized: false
-}
-var loginOptions = {
-    uri: `${config.unifi.url}/api/login`,
-    method: "POST",
-    json: {
-        'username': config.unifi.username,
-        'password': config.unifi.password
-    }
-}
-var statOptions = {
-    uri: `${config.unifi.url}/api/s/${config.unifi.site}/stat/sta`
-}
-
 // Objects containing lists of all previously registered access points and clients and the times they registered
 var nodes = { };
 var clients = { };
 
+var controller = new unifi.Controller(config.unifi.addr, config.unifi.port);
+
 function getStats() {
-    request(Object.assign({}, baseOptions, statOptions), function(error, response, body) {
+    controller.getClientDevices(config.unifi.site, function(error, data) {
         if (error) {
             console.log(`error: ${error}`);
             clearInterval(iVar);
             return;
         }
-        var data = JSON.parse(body).data;
         var payloads = { };
         var timestamp = Date.now();
-        data.forEach(function(client) {
+        data[0].forEach(function(client) {
             if (!client.is_wired) {
                 if (payloads[client.ap_mac] == undefined) {
                     if (nodes[client.ap_mac] == undefined) {
@@ -89,7 +76,7 @@ function getStats() {
     });
 }
 
-request(Object.assign({}, baseOptions, loginOptions), function(error, response, body) {
+controller.login(config.unifi.username, config.unifi.password, function(error) {
     if (error) {
         console.log(`error: ${error}`);
         return;

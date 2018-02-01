@@ -14,8 +14,11 @@ The Username for your controller
 #### password
 The password for your controller
 
-#### url
-The base url for your controller
+#### addr
+The hostname/ip address for your controller
+
+#### port
+The ssl port for your controller
 
 #### site
 The short site "name" which is visible in the URL when managing the site in the UniFi Controller:

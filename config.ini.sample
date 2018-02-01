@@ -1,7 +1,8 @@
 [unifi]
 username=admin
 password=changeme
-url=https://unifi:8443
+addr=unifi
+port=8443
 site=default
 
 [findlf]
