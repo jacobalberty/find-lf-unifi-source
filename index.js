@@ -1,15 +1,15 @@
 const request = require("request").defaults({jar: true})
     , fs = require("fs")
-    , ini = require("ini")
     , unifi = require("node-unifi");
 
 
 try {
-    var config = ini.parse(fs.readFileSync("config.ini", "utf-8"));
+    var config = JSON.parse(fs.readFileSync("config.json", "utf-8"));
 }
 catch (err) {
     if (err.code = 'ENOENT') {
-        console.log('config.ini missing, please see README.md');
+        console.log(err);
+        console.log('config.json missing, please see README.md');
         return;
     } else {
         throw err;

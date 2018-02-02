@@ -1,0 +1,16 @@
+{
+  "unifi": {
+    "username": "admin",
+    "password": "changeme",
+    "addr": "unifi",
+    "port": "8443",
+    "site": "default"
+  },
+  "findlf": {
+    "url": "https://lf.internalpositioning.com",
+    "group": ""
+  },
+  "other": {
+    "interval": "5"
+  }
+}

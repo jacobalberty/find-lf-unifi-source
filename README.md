@@ -4,7 +4,7 @@ This software turns a unifi controller into a source of signal levels for a find
 ## Setup
 Copy config.ini.sample to config.ini and edit the settings in the file to meet your setup
 
-### config.ini settings
+### config.json settings
 ### unifi
 These settings relate to your unifi controller
 
