@@ -1,5 +1,6 @@
 .git
-config.ini.sample
+.gitignore
+*.sample
 .*.swp
 Dockerfile
 node_modules
