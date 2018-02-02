@@ -9,7 +9,7 @@ try {
 catch (err) {
     if (err.code = 'ENOENT') {
         console.log(err);
-        console.log('config.json missing, please see README.md');
+        console.log('config.json missing or invalid, please see README.md');
         return;
     } else {
         throw err;
